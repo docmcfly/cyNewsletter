@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="usertools">
+		<header />
+		<body>
+			<trans-unit id="task.sendNewsletter.title">
+				<source>Send a newsletter</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.description">
+				<source>Send a reminder email if a new news is posted.</source>
+			</trans-unit>
+
+
+			<trans-unit id="task.sendNewsletter.newsStoragePageId">
+				<source>Page id of the news storage</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.feUserPageId">
+				<source>Page id of the frontend users.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.newsDisplayUrl">
+				<source>Url the news show.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.logStoragePageId">
+				<source>Storage of the newsletter log.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.maxCharacters">
+				<source>Limitation of the characters in the news reminder email</source>
+			</trans-unit>
+
+			<trans-unit id="task.sendNewsletter.error.invalid.newsStoragePageId">
+				<source>Invalid news storoage page id.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.feUserPageId">
+				<source>Invalid frontend user page id.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.logStoragePageId">
+				<source>Invalid log stroage page id.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.newsDisplayUrl">
+				<source>Invalid news display url.</source>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.maxCharacters">
+				<source>The limitation of the characters in the news reminder email is invalid.</source>
+			</trans-unit>
+
+
+		</body>
+	</file>
+</xliff>

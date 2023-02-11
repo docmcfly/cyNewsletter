@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="usertools">
+		<header />
+		<body>
+			<trans-unit id="plugin.name">
+				<source>Newsletter settings</source>
+			</trans-unit>
+			<trans-unit id="plugin.description">
+				<source>With this plugin the user can change the own newsletter settings.</source>
+			</trans-unit>
+
+
+			<trans-unit id="flexforms_general.title">
+				<source>Common settings</source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.visbleFeGroups">
+				<source>Visbible frontend user groups </source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.settings.userImageFolder">
+				<source>Storage folder for the user image</source>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

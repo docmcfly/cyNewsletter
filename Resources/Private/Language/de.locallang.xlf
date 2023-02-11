@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-03-12T08:01:36Z" product-name="cynewsletter">
+		<header />
+		<body>
+
+			<!-- user settings -->
+			<trans-unit id="userSettings.form.newsletterSettings">
+				<source>Newsletter settings:</source>
+				<target state="tanslated">Newsletter-Einstellungen:</target>
+			</trans-unit>
+			<trans-unit id="userSettings.form.submit">
+				<source>Save</source>
+				<target state="tanslated">Speichern</target>
+			</trans-unit>
+
+			<!-- Newsletter options -->
+			<trans-unit id="userSettings.form.newsletterOption.disabled">
+				<source>Disabled</source>
+				<target state="tanslated">Abgeschaltet</target>
+			</trans-unit>
+			<trans-unit id="userSettings.form.newsletterOption.onlyImportantNews">
+				<source>Only important news</source>
+				<target state="tanslated">Nur als wichtig markierte Nachrichten</target>
+			</trans-unit>
+			<trans-unit id="userSettings.form.newsletterOption.allNews">
+				<source>All news</source>
+				<target state="tanslated">Alle Nachrichten</target>
+			</trans-unit>
+
+
+			<!-- user settings - info -->
+			<trans-unit id="userSettings.form.info.savingSuccessful">
+				<source>The values are save successful. </source>
+				<target state="tanslated">Einstellungen erfolgreich abgespeichert.</target>
+			</trans-unit>
+
+			<!-- user settings - errors -->
+			<trans-unit id="userSettings.form.error.notLogged">
+				<source>You are not logged.</source>
+				<target state="tanslated">Sie sind nicht eingeloggt.</target>
+			</trans-unit>
+			<trans-unit id="userSettings.form.error.onlyCurrentUserIsEditable">
+				<source>Only the current logged user is editable.</source>
+				<target state="tanslated">Sie können nur den Nutzer bearbeiten, der auch eingeloggt ist.</target>
+			</trans-unit>
+			<trans-unit id="userSettings.form.error.invalidNewsletterSetting">
+				<source>The newsletter setting is invalid.</source>
+				<target state="tanslated">Die Newsletter-Einstellung ist ungültig.</target>
+			</trans-unit>
+
+			<trans-unit id="task.sendNewsletter.newsStoragePageId">
+				<source>Page id of the news storage</source>
+				<target state="tanslated">Page Id der Nachrichtenablage</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.feUserPageId">
+				<source>Page id of the frontend users.</source>
+				<target state="tanslated">Page Id der Webseitennutzer</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.newsDisplayUrl">
+				<source>Url the news show.</source>
+				<target state="tanslated">Seite, wo die News angezeigt werden</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.logStoragePageId">
+				<source>Storage of the newsletter log.</source>
+				<target state="tanslated">Hier werden die Log-Einträge hinterlegt.</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.maxCharacters">
+				<source>Limitation of the characters in the news reminder email</source>
+				<target state="tanslated">Wie viele Zeichen sollen in der Erinnerungsmail von der Neuigkeit angezeigt werden?</target>
+			</trans-unit>
+
+			<trans-unit id="task.sendNewsletter.error.invalid.newsStoragePageId">
+				<source>Invalid news storoage page id.</source>
+				<target state="tanslated">Ungültige News-Speicher-Seiten-Id.</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.feUserPageId">
+				<source>Invalid frontend user page id.</source>
+				<target state="tanslated">Ungültige Webseitennutzer-Seiten-Id.</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.logStoragePageId">
+				<source>Invalid log stroage page id.</source>
+				<target state="tanslated">Ungültige Log-Speicher-Seiten-Id.</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.newsDisplayUrl">
+				<source>Invalid news display url.</source>
+				<target state="tanslated">Ungültige URL (Wo die News angezeigt werden.)</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.invalid.maxCharacters">
+				<source>The limitation of the characters in the news reminder email is invalid.</source>
+				<target state="tanslated">Zeichenanzahl in der Erinnerungsmail ist ungültig.</target>
+			</trans-unit>
+
+			<trans-unit id="task.sendNewsletter.rememberEmail.subject">
+				<source>Newletter: </source>
+				<target state="tanslated">Newsletter:</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.salutation">
+				<source>Hello %s,</source>
+				<target state="tanslated">Guten Tag %s,</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.teaser">
+				<source>a new news is public. Here are the first words of the news:</source>
+				<target state="tanslated">es wurde eine neue Neuigkeit veröffentlicht. Hier sind die ersten Zeilen der Nachricht:</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.newsLink">
+				<source>Link to the full news</source>
+				<target state="tanslated">Link zur vollständigen Neuigkeit</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.subscriptInfo">
+				<source>Hint: You can config the newsletter settings in your personal profile.</source>
+				<target state="tanslated">Hinweis: Im persönlichen Profil kann man die Einstellungen zu diesem Newsletter verändert.</target>
+			</trans-unit>
+
+
+
+		</body>
+	</file>
+</xliff>

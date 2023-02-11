@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="usertools">
+		<header/>
+		<body>
+			<trans-unit id="flexforms_general.allowEmailLogin.label">
+				<source>Allows email login</source>
+			</trans-unit>
+				<trans-unit id="flexforms_general.redirectSuccess.label">
+				<source>Redirect link after success login</source>
+			</trans-unit>
+			<trans-unit id="flexforms_general.title">
+				<source>Common settings</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
