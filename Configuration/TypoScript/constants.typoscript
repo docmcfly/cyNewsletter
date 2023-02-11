@@ -1,0 +1,13 @@
+
+plugin.tx_cynewsletter_usersettings {
+    view {
+        templateRootPath = EXT:cy_newsletter/Resources/Private/Templates/
+        partialRootPath = EXT:cy_newsletter/Resources/Private/Partials/
+        layoutRootPath = EXT:cy_newsletter/Resources/Private/Layouts/
+    }
+    persistence {
+        # cat=plugin.tx_usertools_editprofile//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}
+
