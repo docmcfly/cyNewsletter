@@ -1,0 +1,12 @@
+
+plugin.tx_cynewsletter_usersettings {
+    view {
+        templateRootPath = EXT:cy_newsletter/Resources/Private/Templates/
+        partialRootPath = EXT:cy_newsletter/Resources/Private/Partials/
+        layoutRootPath = EXT:cy_newsletter/Resources/Private/Layouts/
+    }
+    persistence {
+        storagePid =
+    }
+}
+

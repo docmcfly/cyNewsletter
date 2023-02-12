@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-01-09T21:28:55Z" product-name="cynewsletter">
+		<header />
+		<body>
+
+			<!-- FRONTEND USER -->
+			<trans-unit id="tx_cynewsletter_domain_model_frontendUser.sheet.user_settings">
+				<source>Newsletter user settings</source>
+				<target state="tanslated">Newsletter-Benutzereinstellungen</target>
+			</trans-unit>
+
+			<trans-unit id="tx_cynewsletter_domain_model_frontendUser.newsletter_setting">
+				<source>Newsletter setting</source>
+				<target state="tanslated">Newsletter-Einstellung</target>
+			</trans-unit>
+
+			<!-- frontend user extenstion tab-->
+			<trans-unit id="fe_users.tx_extbase_type.Tx_CyNewsletter_User">
+				<source>Newsletter settings</source>
+				<target state="tanslated">Newsletter-Einstellungen</target>
+			</trans-unit> 
+
+			<!-- NEWSLETTER LOG -->
+			<trans-unit id="tx_cynewsletter_domain_model_newsletter_log.news">
+				<source>News</source>
+				<target state="tanslated">Nachricht</target>
+			</trans-unit>
+			<trans-unit id="tx_cynewsletter_domain_model_newsletter_log.title">
+				<source>Newsletter log</source>
+				<target state="tanslated">Newsletter log</target>
+			</trans-unit>
+			<trans-unit id="tx_cynewsletter_domain_model_newsletter_log.description">
+				<source>Contains the history of transmitted newsletters</source>
+				<target state="tanslated">Enthält alle bereits versandten Newsletter</target>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

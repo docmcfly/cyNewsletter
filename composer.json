@@ -1,0 +1,31 @@
+{
+	"name" : "cylancer/cy_newsletter",
+	"type" : "typo3-cms-extension",
+	"description" : "This extension allows to send a newsletter based on a news from the news extension.",
+	"license" : "GPL-2.0-or-later",
+	"require" : {
+		"typo3/cms-core" : "^11.5",
+		"georgringer/news" : "^9.4"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Cylancer\\CyNewsletter\\" : "Classes"
+		}
+	},
+	"authors" : [{
+			"name" : "Clemens Gogolin",
+			"email" : "service@cylancer.net",
+			"role" : "developer",
+			"homepage" : "https://github.com/docmcfly/cyNewsletter"
+		}
+	],
+	"support" : {
+		"issues" : "https://github.com/docmcfly/cyNewsletter/issues",
+		"source" : "https://github.com/docmcfly/cyNewsletter"
+	},
+	"extra" : {
+		"typo3/cms" : {
+			"extension-key" : "cynewsletter"
+		}
+	}
+}
