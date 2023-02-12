@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-<<<<<<< HEAD
 	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="cynewsletter">
 		<header />
 		<body>
@@ -31,33 +30,6 @@
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.senderName">
 				<source>Sender name</source>
-=======
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="usertools">
-		<header />
-		<body>
-			<trans-unit id="task.sendNewsletter.title">
-				<source>Send a newsletter</source>
-			</trans-unit>
-			<trans-unit id="task.sendNewsletter.description">
-				<source>Send a reminder email if a new news is posted.</source>
-			</trans-unit>
-
-
-			<trans-unit id="task.sendNewsletter.newsStoragePageId">
-				<source>Page id of the news storage</source>
-			</trans-unit>
-			<trans-unit id="task.sendNewsletter.feUserPageId">
-				<source>Page id of the frontend users.</source>
-			</trans-unit>
-			<trans-unit id="task.sendNewsletter.newsDisplayUrl">
-				<source>Url the news show.</source>
-			</trans-unit>
-			<trans-unit id="task.sendNewsletter.logStoragePageId">
-				<source>Storage of the newsletter log.</source>
-			</trans-unit>
-			<trans-unit id="task.sendNewsletter.maxCharacters">
-				<source>Limitation of the characters in the news reminder email</source>
->>>>>>> refs/remotes/origin/develop
 			</trans-unit>
 
 			<trans-unit id="task.sendNewsletter.error.invalid.newsStoragePageId">
