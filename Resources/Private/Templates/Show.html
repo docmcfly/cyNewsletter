@@ -7,6 +7,7 @@
 <body>
 	<f:layout name="Default" />
 	<f:section name="main">
+<<<<<<< HEAD
 		<f:asset.css identifier="tx_cynewsletter_custom.css" href="EXT:cy_newsletter/Resources/Public/Css/tx_cynewsletter_custom.css" />
 		<div class="card profile">
 			<f:render partial="validationResults" arguments="{prefix:'userSettings.form', validationResults: validationResults}" />
@@ -40,6 +41,42 @@
 		</f:form>
 	</f:section>
 	<f:section name="nonauthenticated">
+=======
+		<f:asset.css identifier="tx_usertools_custom.css" href="EXT:usertools/Resources/Public/Css/tx_usertools_custom.css" />
+		<div class="card profile">
+			<f:render partial="validationResults" arguments="{prefix:'userSettings.form', validationResults: validationResults}" />
+			<f:security.ifAuthenticated>
+				<f:then>
+					<f:render section="authenticated" arguments="{_all}" />
+				</f:then>
+				<f:else>
+					<f:render section="nonauthenticated" arguments="{_all}" />
+				</f:else>
+			</f:security.ifAuthenticated>
+		</div>
+	</f:section>
+	<f:section name="authenticated">
+		<f:form action="doEditProfile" object="{currentUser}" class="form" name="currentUser" enctype="multipart/form-data">
+			<div class="card-body">
+				<div class="card-text">
+					<!-- newsletter settings -->
+					<div class="form">
+						<label for="newsletterSetting"> <f:translate key="editProfile.form.newsletterSettings" />
+						</label>
+						<f:form.select property="newsletterSetting" options="{newsletterOptions}" />
+					</div>
+				</div>
+				<div class="form">
+					<!-- SUBMIT BUTTON -->
+					<f:form.submit class="btn btn-primary btn-lg" disabled="{existsErrors}" value="{f:translate(key: 'editProfile.form.submit')}" />
+					<!-- SUBMIT BUTTON -->
+				</div>
+			</div>
+		</f:form>
+	</f:section>
+	<f:section name="nonauthenticated">
+		<f:render partial="validationResults" arguments="{prefix:'userSettings.form', validationResults: validationResults}" />
+>>>>>>> refs/remotes/origin/develop
 	</f:section>
 </body>
 </html>

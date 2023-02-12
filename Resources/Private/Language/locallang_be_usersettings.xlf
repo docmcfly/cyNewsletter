@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="usertools">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="cynewsletter">
 		<header />
 		<body>
 			<trans-unit id="plugin.name">
-				<source>Newsletter settings</source>
+				<source>Newsletter settings</source>cynewsletter
 			</trans-unit>
 			<trans-unit id="plugin.description">
 				<source>With this plugin the user can change the own newsletter settings.</source>
