@@ -17,7 +17,7 @@ return [
             'endtime' => 'endtime'
         ],
         'searchFields' => 'news',
-        'iconfile' => 'EXT:cy_newsletter/Resources/Public/Icons/tx_cynewsletter_domain_model_newsletter_log.gif'
+        'iconfile' => 'EXT:cy_newsletter/Resources/Public/Icons/actions-document-select.png'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, news'

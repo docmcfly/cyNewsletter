@@ -40,23 +40,23 @@ final class UserToolsMigrationWizard implements UpgradeWizardInterface
     {
         /** @var QueryBuilder $source */
         $source = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_usertools_domain_model_newsletterlog');
-        $source->select('news')->from('tx_usertools_domain_model_newsletterlog');
-
+        $source->select('pid','news')->from('tx_usertools_domain_model_newsletterlog');
+        
         $sourceStatement = $source->execute();
-
+        
         /** @var QueryBuilder $target */
-
+        
         $target = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_usertools_domain_model_newsletterlog');
         $target->insert('tx_cynewsletter_domain_model_newsletterlog');
-
+        
         while ($row = $sourceStatement->fetch()) {
             $target->values([
+                'pid' => $row['pid'],
                 'news' => $row['news']
             ])->executeStatement();
         }
         return true;
     }
-
     /**
      * Is an update necessary?
      *
