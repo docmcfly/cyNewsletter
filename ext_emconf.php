@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.0',
+    'version' => '1.0.1',
     'constraints' => [
         'depends' => [
             'typo3' => '11.5.0-11.5.99',
@@ -28,5 +28,7 @@ $EM_CONF[$_EXTKEY] = [
 
 /** ---- CHANGELOG ----------
 1.0.0 :: Initial 
+1.0.1 :: fix the broken log record icon / add a usertools migration wizzard
+
 
 // ---- CHANGELOG ---------- */
