@@ -54,6 +54,10 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\CyNews
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cynewsletter_newsletterUsertoolsMigrationWizard']
 = UserToolsMigrationWizard::class;
 
-
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript(
+    'cy_newsletter',
+    'setup',
+    "@import 'EXT:cy_newsletter/Configuration/TypoScript/setup.typoscript'"
+    );
 
 
