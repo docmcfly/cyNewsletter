@@ -11,19 +11,19 @@
 <body>
 <f:layout name="Default"/>
 <f:section name="main">
-<f:translate key="LLL:EXT:cyNewsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.salutation" arguments="{0:currentUser.name}" />
-<f:translate key="LLL:EXT:cyNewsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.teaser"/>
+<f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.salutation" arguments="{0:currentUser.name}" />
+<f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.teaser"/>
 {news.title}<f:if condition="{news.teaser}">
 
 {news.teaser}</f:if>
 
 <f:format.crop maxCharacters="{maxCharacters}" respectWordBoundaries="true"><f:format.htmlentitiesDecode>{news.bodytext}</f:format.htmlentitiesDecode></f:format.crop>
 
-<f:translate key="LLL:EXT:cyNewsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.newsLink" />
-<a href="{targetUrl}?tx_news_pi1[action]=detail&tx_news_pi1[controller]=News&tx_news_pi1[news]={news.uid}"><f:translate key="LLL:EXT:cyNewsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.newsLink" />/a>
+<f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.newsLink" />
+<a href="{targetUrl}?tx_news_pi1[action]=detail&tx_news_pi1[controller]=News&tx_news_pi1[news]={news.uid}"><f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.newsLink" />/a>
 
 --
-<f:translate key="LLL:EXT:cyNewsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.subscriptInfo"/>
+<f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:task.sendNewsletter.rememberEmail.subscriptInfo"/>
 </f:section>
 </body></html>
 
