@@ -38,10 +38,10 @@ class FrontendUserService implements SingletonInterface
      *
      * @return FrontendUser Returns the current frontend user
      */
-    public function getCurrentUser(): FrontendUser
+    public function getCurrentUser(): ?FrontendUser
     {
         if (! $this->isLogged()) {
-            return false;
+            return null;
         }
         return $this->frontendUserRepository->findByUid($this->getCurrentUserUid());
     }
@@ -70,52 +70,4 @@ class FrontendUserService implements SingletonInterface
         return $context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
     }
 
-    /**
-     *
-     * @param FrontendUserGroup $userGroup
-     * @param integer $fegid
-     * @param array $loopProtect
-     * @return boolean
-     */
-    public function contains($userGroup, $feugid, &$loopProtect = array()): bool
-    {
-        if ($userGroup->getUid() == $feugid) {
-            return true;
-        } else {
-            if (! in_array($userGroup->getUid(), $loopProtect)) {
-                $loopProtect[] = $userGroup->getUid();
-                foreach ($userGroup->getSubgroup() as $sg) {
-                    if ($this->contains($sg, $feugid, $loopProtect)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-    }
-
-    /**
-     *
-     * @param FrontendUserGroup $userGroup
-     * @param integer $fegid
-     * @param array $loopProtect
-     * @return boolean
-     */
-    public function getAllGroups($userGroup, $return = array(), &$loopProtect = array()): bool
-    {
-        $return = array();
-        if ($userGroup->getUid() == $feugid) {
-            return true;
-        } else {
-            if (! in_array($userGroup->getUid(), $loopProtect)) {
-                $loopProtect[] = $userGroup->getUid();
-                foreach ($userGroup->getSubgroup() as $sg) {
-                    if ($this->contains($sg, $feugid, $loopProtect)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-    }
 }

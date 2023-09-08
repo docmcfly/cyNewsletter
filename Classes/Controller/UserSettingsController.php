@@ -10,6 +10,7 @@ use Cylancer\CyNewsletter\Domain\Model\FrontendUser;
 use Cylancer\CyNewsletter\Domain\Model\ValidationResults;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use Cylancer\CyNewsletter\Service\FrontendUserService;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * This file is part of the "Newsletter" Extension for TYPO3 CMS.
@@ -57,7 +58,7 @@ class UserSettingsController extends ActionController
     /**
      *
      * @param FrontendUser $user
-     * @return NULL|Object
+     * @return NULL|object
      *
      */
     public function saveAction(FrontendUser $currentUser = null): ?Object
@@ -91,9 +92,9 @@ class UserSettingsController extends ActionController
     /**
      * Show the user settings
      *
-     * @return NULL|Object
+     * @return ResponseInterface
      */
-    public function showAction(): ?Object
+    public function showAction(): ResponseInterface
     {
         $validationResults = $this->getValidationResults();
 
@@ -104,7 +105,7 @@ class UserSettingsController extends ActionController
             $validationResults->addError('notLogged');
         }
         $this->view->assign(UserSettingsController::VALIDATIOPN_RESULTS, $validationResults);
-        return null;
+         return $this->htmlResponse();
     }
 
     /**
