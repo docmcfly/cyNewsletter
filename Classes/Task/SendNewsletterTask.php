@@ -11,7 +11,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use Cylancer\CyNewsletter\Domain\Model\UserNewsletterOptions;
 use Cylancer\CyNewsletter\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\MailUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use Cylancer\CyNewsletter\Service\EmailSendService;

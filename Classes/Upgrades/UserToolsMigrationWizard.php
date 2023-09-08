@@ -3,12 +3,7 @@ declare(strict_types = 1);
 namespace Cylancer\CyNewsletter\Upgrades;
 
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Cylancer\CyNewsletter\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
-use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
-use Cylancer\CyNewsletter\Domain\Repository\NewsletterLogRepository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 
@@ -76,7 +71,7 @@ final class UserToolsMigrationWizard implements UpgradeWizardInterface
                 ->setMaxResults(1);
 
             $sourceStatement = $source->execute();
-            if (! ($row = $sourceStatement->fetch() !== false)) {
+            if (! ($row = $sourceStatement->fetchAllNumeric() !== false)) {
                 return false;
             }
 
@@ -87,12 +82,13 @@ final class UserToolsMigrationWizard implements UpgradeWizardInterface
                 ->setMaxResults(1);
 
             $targetStatement = $target->execute();
-            if ($row = $targetStatement->fetch() !== false) {
+            if ($row = $targetStatement->fetchAllNumeric() !== false) {
                 return true;
             }
 
             return false;
         }
+        return true;
     }
 
     /**
@@ -105,7 +101,7 @@ final class UserToolsMigrationWizard implements UpgradeWizardInterface
      */
     public function getPrerequisites(): array
     {
-        // Add your logic here
+        return [];
     }
 
     public function getIdentifier(): string

@@ -28,7 +28,7 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      * @param array $taskInfo
      * @param SendNewsletterTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */
@@ -66,7 +66,7 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      * @param array $taskInfo
      * @param SendNewsletterTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */
@@ -104,7 +104,7 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      * @param array $taskInfo
      * @param SendNewsletterTask|null $task
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @param array $additionalFields
      * @return void
      */
@@ -175,7 +175,7 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      *
      * @param array $submittedData
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @return boolean
      */
     private function validateIntegerAdditionalField(array &$submittedData, SchedulerModuleController $schedulerModule, String $key)
@@ -196,7 +196,7 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      *
      * @param array $submittedData
      * @param SchedulerModuleController $schedulerModule
-     * @param String $key
+     * @param string $key
      * @return boolean
      */
     private function validateUrlAdditionalField(array &$submittedData, SchedulerModuleController $schedulerModule, String $key)
@@ -239,7 +239,7 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      *
      * @param array $submittedData
      * @param AbstractTask $task
-     * @param String $key
+     * @param string $key
      * @return void
      */
     public function saveAdditionalField(array $submittedData, AbstractTask $task, String $key)
