@@ -195,7 +195,7 @@ class SendNewsletterTask extends AbstractTask
                 }
             }
         }
-        //  $this->persistenceManager->persistAll();
+        $this->persistenceManager->persistAll();
         return true;
     }
 
