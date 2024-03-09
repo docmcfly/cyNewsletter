@@ -24,17 +24,14 @@
 		<f:form action="save" object="{currentUser}" class="form" name="currentUser" enctype="multipart/form-data">
 			<div class="card-body">
 				<div class="card-text">
-					<!-- newsletter settings -->
 					<div class="form">
 						<label for="newsletterSetting"> <f:translate key="userSettings.form.newsletterSettings" />
 						</label>
-						<f:form.select property="newsletterSetting" options="{newsletterOptions}" />
+						<f:form.select  class="form-select" property="newsletterSetting" options="{newsletterOptions}" />
 					</div>
 				</div>
 				<div class="form mt-3">
-					<!-- SUBMIT BUTTON -->
 					<f:form.submit class="btn btn-primary btn-lg" disabled="{existsErrors}" value="{f:translate(key: 'userSettings.form.submit')}" />
-					<!-- SUBMIT BUTTON -->
 				</div>
 			</div>
 		</f:form>

@@ -1,6 +1,14 @@
 <?php
 namespace Cylancer\CyNewsletter\Task;
 
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Symfony\Component\Mime\Address;
+use TYPO3\CMS\Core\Mail\FluidEmail;
+use TYPO3\CMS\Core\Mail\MailerInterface;
+use TYPO3\CMS\Core\Site\SiteFinder;
+
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use GeorgRinger\News\Domain\Repository\NewsRepository;
@@ -12,8 +20,7 @@ use Cylancer\CyNewsletter\Domain\Model\UserNewsletterOptions;
 use Cylancer\CyNewsletter\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Core\Utility\MailUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use Cylancer\CyNewsletter\Service\EmailSendService;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 /**
  * This file is part of the "newsletter" Extension for TYPO3 CMS.
@@ -21,7 +28,7 @@ use Cylancer\CyNewsletter\Service\EmailSendService;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 Clemens Gogolin <service@cylancer.net>
  *
  * @package Cylancer\CyNewsletter\Task;
  */
@@ -36,11 +43,13 @@ class SendNewsletterTask extends AbstractTask
 
     const MAX_CHARACTERS = 'maxCharacters';
 
-    const NEWS_DISPLAY_URL = 'newsDisplayUrl';
+    const NEWS_DISPLAY_PAGE_ID = 'newsDisplayPageUid';
 
     const SUBJECT_PREFIX = 'subjectPrefix';
 
     const SENDER_NAME = 'senderName';
+
+    const SITE_IDENTIFIER = 'siteIdentifier';
 
     const NEWS_PUBLIC_OFFSET = 3600;
 
@@ -54,11 +63,12 @@ class SendNewsletterTask extends AbstractTask
 
     public $maxCharacters = 25;
 
-    public $newsDisplayUrl = 'https://';
+    public $newsDisplayPageUid = 0;
 
     public $subjectPrefix = '';
 
     public $senderName = '';
+    public $siteIdentifier = '';
 
     /** @var FrontendUserRepository */
     private $frontendUserRepository = null;
@@ -69,11 +79,12 @@ class SendNewsletterTask extends AbstractTask
     /** @var NewsletterLogRepository */
     private $newsletterLogRepository = null;
 
-    /**  @var EmailSendService */
-    private $emailService = null;
-
     /** @var PersistenceManagerInterface */
     private $persistenceManager;
+
+    /* @var UriBuilder */
+    private UriBuilder $uriBuilder;
+
 
     /**
      *
@@ -82,16 +93,12 @@ class SendNewsletterTask extends AbstractTask
      */
     public function init()
     {
-        /**
-         *
-         * @var ObjectManager $objectManager
-         * @deprecated $objectManager
-         */
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+
+        $this->uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
         $this->persistenceManager = GeneralUtility::makeInstance(PersistenceManager::class);
 
-        $this->frontendUserRepository = GeneralUtility::makeInstance(FrontendUserRepository::class, $objectManager);
+        $this->frontendUserRepository = GeneralUtility::makeInstance(FrontendUserRepository::class);
         $this->frontendUserRepository->injectPersistenceManager($this->persistenceManager);
 
         $querySettings = $this->frontendUserRepository->createQuery()->getQuerySettings();
@@ -100,7 +107,7 @@ class SendNewsletterTask extends AbstractTask
         ]);
         $this->frontendUserRepository->setDefaultQuerySettings($querySettings);
 
-        $this->newsRepository = GeneralUtility::makeInstance(NewsRepository::class, $objectManager);
+        $this->newsRepository = GeneralUtility::makeInstance(NewsRepository::class);
         $this->newsRepository->injectPersistenceManager($this->persistenceManager);
 
         $querySettings = $this->newsRepository->createQuery()->getQuerySettings();
@@ -109,7 +116,7 @@ class SendNewsletterTask extends AbstractTask
         ]);
         $this->newsRepository->setDefaultQuerySettings($querySettings);
 
-        $this->newsletterLogRepository = GeneralUtility::makeInstance(NewsletterLogRepository::class, $objectManager);
+        $this->newsletterLogRepository = GeneralUtility::makeInstance(NewsletterLogRepository::class);
         $this->newsletterLogRepository->injectPersistenceManager($this->persistenceManager);
 
         $querySettings = $this->newsletterLogRepository->createQuery()->getQuerySettings();
@@ -118,9 +125,8 @@ class SendNewsletterTask extends AbstractTask
         ]);
 
         $this->newsletterLogRepository->setDefaultQuerySettings($querySettings);
-
-        $this->emailSendService = GeneralUtility::makeInstance(EmailSendService::class);
     }
+
 
     public function execute()
     {
@@ -139,25 +145,16 @@ class SendNewsletterTask extends AbstractTask
             $nlqb->select('news')
                 ->from('tx_cynewsletter_domain_model_newsletterlog')
                 ->where($nlqb->expr()
-                ->eq('pid', $this->logStoragePageId));
+                    ->eq('pid', $this->logStoragePageId));
             // debug($nlqb->getSQL());
 
             $nqb = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_news_domain_model_news');
             $nqb->select('*')
                 ->from('tx_news_domain_model_news')
                 ->where($nlqb->expr()
-                ->eq('pid', $this->newsStoragePageId));
-
-            // debug($nqb->getSQL());
-
+                    ->eq('pid', $this->newsStoragePageId));
             $sql = $nqb->getSQL() . ' AND `uid` NOT IN ( ' . $nlqb->getSQL() . ' ) ';
-
-            // Alle News zwischen dem letzten Log-Eintrag und dem aktuellen Zeitpunkt -1h
-            // debug($sql);
-
-            foreach ($this->newsRepository->createQuery()
-                ->statement($sql)
-                ->execute() as $n) {
+            foreach ($this->newsRepository->createQuery()->statement($sql)->execute() as $n) {
 
                 $t = time();
                 $plusOneHour = $t - SendNewsletterTask::NEWS_PUBLIC_OFFSET;
@@ -171,25 +168,26 @@ class SendNewsletterTask extends AbstractTask
                     ];
 
                     $subject = $this->get(SendNewsletterTask::SUBJECT_PREFIX) . $n->getTitle();
-
                     $uq = $this->frontendUserRepository->createQuery();
 
-                    foreach ($uq->matching($uq->logicalAnd([
-                        $uq->in('newsletterSetting', $newsletterOptions),
-                        $uq->logicalNot($uq->equals('email', ''))
-                    ]))
-                        ->execute() as $u) {
-                        $this->emailSendService->sendTemplateEmail([
-                            $u->getEmail() => $u->getName()
-                        ], [
-                            MailUtility::getSystemFromAddress() => $this->get(SendNewsletterTask::SENDER_NAME)
-                        ], [], $subject, 'NewsRememberEmail', SendNewsletterTask::EXTENSION_NAME, [
-                            'targetUrl' => $this->newsDisplayUrl,
-                            'user' => $u,
-                            'news' => $n,
-                            'maxCharacters' => $this->maxCharacters
-                        ]);
+                    foreach ($uq->matching($uq->logicalAnd($uq->in('newsletterSetting', $newsletterOptions), $uq->logicalNot($uq->equals('email', ''))))->execute() as $u) {
+
+                        $fluidEmail = GeneralUtility::makeInstance(FluidEmail::class);
+                        $fluidEmail
+                            ->setRequest($this->createRequest($this->siteIdentifier))
+                            ->to(new Address($u->getEmail(), $u->getName()))
+                            ->from(new Address(MailUtility::getSystemFromAddress(), $this->get(SendNewsletterTask::SENDER_NAME)))
+                            ->subject($subject)
+                            ->format(FluidEmail::FORMAT_BOTH) // send HTML and plaintext mail
+                            ->setTemplate('NewsRememberEmail')
+                            ->assign('user', $u)
+                            ->assign('news', $n)
+                            ->assign('pageUid', $this->newsDisplayPageUid)
+                            ->assign('maxCharacters', $this->maxCharacters)
+                        ;
+                        GeneralUtility::makeInstance(MailerInterface::class)->send($fluidEmail);
                     }
+
                     $newletterLog = GeneralUtility::makeInstance(NewsletterLog::class);
                     $newletterLog->setPid($this->logStoragePageId);
                     $newletterLog->setNews($n);
@@ -197,8 +195,21 @@ class SendNewsletterTask extends AbstractTask
                 }
             }
         }
-        $this->persistenceManager->persistAll();
+        //  $this->persistenceManager->persistAll();
         return true;
+    }
+
+    private function createRequest(string $siteIdentifier): RequestInterface
+    {
+        $serverRequestFactory = GeneralUtility::makeInstance(ServerRequestFactoryInterface::class);
+        $site = GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($siteIdentifier);
+        $serverRequest = $serverRequestFactory->createServerRequest('GET', $site->getBase())
+            ->withAttribute('applicationType', \TYPO3\CMS\Core\Core\SystemEnvironmentBuilder::REQUESTTYPE_FE)
+            ->withAttribute('site', $site)
+            ->withAttribute('extbase', new \TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters());
+        $request = GeneralUtility::makeInstance(Request::class, $serverRequest);
+        $GLOBALS['TYPO3_REQUEST'] = $request;
+        return $request;
     }
 
     /**
@@ -209,21 +220,23 @@ class SendNewsletterTask extends AbstractTask
     public function getAdditionalInformation()
     {
         return 'News page id :' . $this->newsStoragePageId . //
-        ' / feUserPageId: ' . $this->feUserPageId . //
-        ' / logStoragePageId: ' . $this->logStoragePageId . //
-        ' / newsDisplayUrl: ' . $this->newsDisplayUrl . //
-        ' / maxCharacters: ' . $this->maxCharacters . //
-        ' / subjectPrefix: ' . $this->subjectPrefix . //
-        ' / senderName: ' . $this->senderName;
+            ' / feUserPageId: ' . $this->feUserPageId . //
+            ' / logStoragePageId: ' . $this->logStoragePageId . //
+            ' / newsDisplayPageUid: ' . $this->newsDisplayPageUid . //
+            ' / maxCharacters: ' . $this->maxCharacters . //
+            ' / subjectPrefix: ' . $this->subjectPrefix . //
+            ' / senderName: ' . $this->senderName .
+            ' / siteIdentifier: ' . $this->siteIdentifier .
+            '';
     }
 
     /**
      *
-     * @param String $key
+     * @param string $key
      * @throws \Exception
-     * @return number|String
+     * @return number|string
      */
-    public function get(String $key)
+    public function get(string $key)
     {
         switch ($key) {
             case SendNewsletterTask::MAX_CHARACTERS:
@@ -234,18 +247,20 @@ class SendNewsletterTask extends AbstractTask
                 return $this->feUserPageId;
             case SendNewsletterTask::LOG_STORAGE_PAGE_ID:
                 return $this->logStoragePageId;
-            case SendNewsletterTask::NEWS_DISPLAY_URL:
-                return $this->newsDisplayUrl;
+            case SendNewsletterTask::NEWS_DISPLAY_PAGE_ID:
+                return $this->newsDisplayPageUid;
             case SendNewsletterTask::SUBJECT_PREFIX:
                 return $this->subjectPrefix;
             case SendNewsletterTask::SENDER_NAME:
                 return $this->senderName;
+            case SendNewsletterTask::SITE_IDENTIFIER:
+                return $this->siteIdentifier;
             default:
                 throw new \Exception("Unknown key: $key");
         }
     }
 
-    public function set(String $key, $value)
+    public function set(string $key, $value)
     {
         switch ($key) {
             case SendNewsletterTask::NEWS_STORAGE_PAGE_ID:
@@ -260,14 +275,17 @@ class SendNewsletterTask extends AbstractTask
             case SendNewsletterTask::MAX_CHARACTERS:
                 $this->maxCharacters = $value;
                 break;
-            case SendNewsletterTask::NEWS_DISPLAY_URL:
-                $this->newsDisplayUrl = $value;
+            case SendNewsletterTask::NEWS_DISPLAY_PAGE_ID:
+                $this->newsDisplayPageUid = $value;
                 break;
             case SendNewsletterTask::SUBJECT_PREFIX:
                 $this->subjectPrefix = $value;
                 break;
             case SendNewsletterTask::SENDER_NAME:
                 $this->senderName = $value;
+                break;
+            case SendNewsletterTask::SITE_IDENTIFIER:
+                $this->siteIdentifier = $value;
                 break;
             default:
                 throw new \Exception("Unknown key: $key");

@@ -9,7 +9,7 @@ namespace Cylancer\CyNewsletter\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 Clemens Gogolin <service@cylancer.net>
  *
  * @package Cylancer\CyNewsletter\Domain\Model
  */

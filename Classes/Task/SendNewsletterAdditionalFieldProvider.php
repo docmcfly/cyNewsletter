@@ -1,6 +1,10 @@
 <?php
 namespace Cylancer\CyNewsletter\Task;
 
+use TYPO3\CMS\Core\Domain\Repository\PageRepository;
+use TYPO3\CMS\Core\Site\SiteFinder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 use TYPO3\CMS\Scheduler\Task\Enumeration\Action;
@@ -14,7 +18,7 @@ use TYPO3\CMS\Scheduler\Task\AbstractTask;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 Clemens Gogolin <service@cylancer.net>
  *
  * @package Cylancer\CyNewsletter\Task;
  */
@@ -61,45 +65,8 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
         ];
     }
 
-    /**
-     *
-     * @param array $taskInfo
-     * @param SendNewsletterTask|null $task
-     * @param SchedulerModuleController $schedulerModule
-     * @param string $key
-     * @param array $additionalFields
-     * @return void
-     */
-    private function initUrlAddtionalField(array &$taskInfo, $task, SchedulerModuleController $schedulerModule, String $key, array &$additionalFields)
-    {
-        $currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
-
-        // Initialize extra field value
-        if (empty($taskInfo[$key])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
-                // In case of new task and if field is empty, set default sleep time
-                $taskInfo[$key] = 'https://';
-            } elseif ($currentSchedulerModuleAction->equals(Action::EDIT)) {
-                // In case of edit, set to internal value if no data was submitted already
-                $taskInfo[$key] = $task->get($key);
-            } else {
-                // Otherwise set an empty value, as it will not be used anyway
-                $taskInfo[$key] = 'https://';
-            }
-        }
-
-        // Write the code for the field
-        $fieldID = 'task_' . $key;
-        $fieldCode = '<input type="url" class="form-control" name="tx_scheduler[' . $key . ']" id="' . $fieldID . '" value="' . $taskInfo[$key] . '" >';
-        $additionalFields[$fieldID] = [
-            'code' => $fieldCode,
-            'label' => SendNewsletterAdditionalFieldProvider::TRANSLATION_PREFIX . $key,
-            'cshKey' => '_MOD_system_txschedulerM1',
-            'cshLabel' => $fieldID
-        ];
-    }
-
-    /**
+   
+     /**
      *
      * @param array $taskInfo
      * @param SendNewsletterTask|null $task
@@ -159,13 +126,15 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
 
         $this->initIntegerAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::LOG_STORAGE_PAGE_ID, $additionalFields);
 
-        $this->initUrlAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::NEWS_DISPLAY_URL, $additionalFields);
+        $this->initIntegerAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::NEWS_DISPLAY_PAGE_ID, $additionalFields);
 
         $this->initIntegerAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::MAX_CHARACTERS, $additionalFields);
 
         $this->initStringAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::SUBJECT_PREFIX, $additionalFields);
 
         $this->initStringAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::SENDER_NAME, $additionalFields);
+
+        $this->initStringAddtionalField($taskInfo, $task, $schedulerModule, SendNewsletterTask::SITE_IDENTIFIER, $additionalFields);
 
         // debug($additionalFields);
         return $additionalFields;
@@ -199,16 +168,58 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
      * @param string $key
      * @return boolean
      */
-    private function validateUrlAdditionalField(array &$submittedData, SchedulerModuleController $schedulerModule, String $key)
+    private function validatePageUidAdditionalField(array &$submittedData, SchedulerModuleController $schedulerModule, String $key)
     {
-        $result = true;
-
-        if (! filter_var($submittedData[$key], FILTER_VALIDATE_URL)) {
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
+        if ( count($pageRepository->getPage($submittedData[$key], true)) ===0 ) {
             $this->addMessage($this->getLanguageService()
                 ->sL(SendNewsletterAdditionalFieldProvider::TRANSLATION_PREFIX . 'error.invalid.' . $key), FlashMessage::ERROR);
+            return  false;
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * @param array $submittedData
+     * @param SchedulerModuleController $schedulerModule
+     * @param string $key
+     * @return boolean
+     */
+    private function validateRequiredField(array &$submittedData, SchedulerModuleController $schedulerModule, String $key)
+    {
+        $result = true;
+     
+        /** @var SendNewsletterTask $task */
+        if ( empty($submittedData[$key])) {
+            $this->addMessage($this->getLanguageService()
+                ->sL(SendNewsletterAdditionalFieldProvider::TRANSLATION_PREFIX . 'error.required.' . $key), FlashMessage::ERROR);
             $result = false;
         }
 
+        return $result;
+    }
+
+    /**
+     *
+     * @param array $submittedData
+     * @param SchedulerModuleController $schedulerModule
+     * @param string $key
+     * @return boolean
+     */
+    private function validateSitedField(array &$submittedData, SchedulerModuleController $schedulerModule, String $key)
+    {
+        $result = true;
+     
+        /** @var SendNewsletterTask $task */
+        try{
+             GeneralUtility::makeInstance(SiteFinder::class)->getSiteByIdentifier($submittedData[$key]);
+        } catch (\Exception $e) {
+            $this->addMessage($this->getLanguageService()
+                ->sL(SendNewsletterAdditionalFieldProvider::TRANSLATION_PREFIX . 'error.siteNotFound.' . $key), FlashMessage::ERROR);
+            $result = false;
+        }
         return $result;
     }
 
@@ -230,7 +241,10 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
         $result &= $this->validateIntegerAdditionalField($submittedData, $schedulerModule, SendNewsletterTask::FE_USER_PAGE_ID);
         $result &= $this->validateIntegerAdditionalField($submittedData, $schedulerModule, SendNewsletterTask::LOG_STORAGE_PAGE_ID);
         $result &= $this->validateIntegerAdditionalField($submittedData, $schedulerModule, SendNewsletterTask::MAX_CHARACTERS);
-        $result &= $this->validateUrlAdditionalField($submittedData, $schedulerModule, SendNewsletterTask::NEWS_DISPLAY_URL);
+        $result &= $this->validateRequiredField($submittedData, $schedulerModule, SendNewsletterTask::SITE_IDENTIFIER)
+        &&  $this->validateSitedField($submittedData, $schedulerModule, SendNewsletterTask::SITE_IDENTIFIER);
+        $result &= $this->validateIntegerAdditionalField($submittedData, $schedulerModule, SendNewsletterTask::NEWS_DISPLAY_PAGE_ID)
+        && $this->validatePageUidAdditionalField($submittedData, $schedulerModule, SendNewsletterTask::NEWS_DISPLAY_PAGE_ID);
 
         return $result;
     }
@@ -262,9 +276,10 @@ class SendNewsletterAdditionalFieldProvider extends AbstractAdditionalFieldProvi
         $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::FE_USER_PAGE_ID);
         $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::LOG_STORAGE_PAGE_ID);
         $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::MAX_CHARACTERS);
-        $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::NEWS_DISPLAY_URL);
+        $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::NEWS_DISPLAY_PAGE_ID);
         $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::SUBJECT_PREFIX);
         $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::SENDER_NAME);
+        $this->saveAdditionalField($submittedData, $task, SendNewsletterTask::SITE_IDENTIFIER);
     }
 
     /**

@@ -3,10 +3,10 @@ use Cylancer\CyNewsletter\Controller\UserSettingsController;
 use Cylancer\CyNewsletter\Upgrades\MigrationUpgradeWizard;
 use Cylancer\CyNewsletter\Upgrades\UserToolsMigrationWizard;
 
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('Cylancer.CyNewsletter', 'UserSettings', [
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('CyNewsletter', 'UserSettings', [
        UserSettingsController::class => 'show, save'
     ], 
         // non-cacheable actions
@@ -61,3 +61,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cynewsletter
     );
 
 
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['cy_newsletter']    = 'EXT:cy_newsletter/Resources/Private/Templates/NewsRememberEmail/';
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths']['cy_newsletter']    = 'EXT:cy_newsletter/Resources/Private/Layouts/NewsRememberEmail/';
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['cy_newsletter']    = 'EXT:cy_newsletter/Resources/Private/Partials/NewsRememberEmail/';

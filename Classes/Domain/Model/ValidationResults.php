@@ -10,7 +10,7 @@ namespace Cylancer\CyNewsletter\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 Clemens Gogolin <service@cylancer.net>
  *
  * @package Cylancer\CyNewsletter\Domain\Model
  */
@@ -70,7 +70,7 @@ class ValidationResults
 
     /**
      *
-     * @param String $errorKey
+     * @param string $errorKey
      * @param array $arguments
      */
     public function addInfo(String $infoKey, array $arguments = []): void
@@ -82,7 +82,7 @@ class ValidationResults
 
     /**
      *
-     * @param String $errorKey
+     * @param string $errorKey
      * @param array $arguments
      */
     public function addError(String $errorKey, array $arguments = []): void

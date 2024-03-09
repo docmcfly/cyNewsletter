@@ -9,5 +9,6 @@ return [
     ],
     FrontendUserGroup::class => [
         'tableName' => 'fe_groups'
-    ]
+    ],
+
 ];
