@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<f:layout name="Default"/>
+<f:layout name="NewsRememberEmail"/>
 <f:section name="main">
 <f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.salutation" arguments="{0:currentUser.name}" />
 <f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.teaser"/>
