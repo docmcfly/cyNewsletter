@@ -43,8 +43,8 @@ class UserSettingsController extends ActionController
     {
         if ($this->_validationResults == null) {
             $this->_validationResults = ($this->request->hasArgument(UserSettingsController::VALIDATIOPN_RESULTS)) ? //
-            $this->request->getArgument(UserSettingsController::VALIDATIOPN_RESULTS) : //
-            new ValidationResults();
+                $this->request->getArgument(UserSettingsController::VALIDATIOPN_RESULTS) : //
+                new ValidationResults();
         }
         return $this->_validationResults;
     }
@@ -61,7 +61,7 @@ class UserSettingsController extends ActionController
      * @return NULL|object
      *
      */
-    public function saveAction(FrontendUser $currentUser = null): ?Object
+    public function saveAction(FrontendUser $currentUser = null): ResponseInterface
     {
         /** @var ValidationResults $validationResults **/
         $validationResults = $this->getValidationResults();
@@ -76,11 +76,11 @@ class UserSettingsController extends ActionController
             $validationResults->addError('notLogged');
         }
 
-        if (! key_exists($currentUser->getNewsletterSetting(), UserNewsletterOptions::LABEL)) {
+        if (!key_exists($currentUser->getNewsletterSetting(), UserNewsletterOptions::LABEL)) {
             $validationResults->addError('invalidNewsletterSetting');
         }
 
-        if (! $validationResults->hasErrors()) {
+        if (!$validationResults->hasErrors()) {
             $this->frontendUserRepository->update($currentUser);
             $validationResults->addInfo('savingSuccessful');
         }
@@ -105,7 +105,7 @@ class UserSettingsController extends ActionController
             $validationResults->addError('notLogged');
         }
         $this->view->assign(UserSettingsController::VALIDATIOPN_RESULTS, $validationResults);
-         return $this->htmlResponse();
+        return $this->htmlResponse();
     }
 
     /**

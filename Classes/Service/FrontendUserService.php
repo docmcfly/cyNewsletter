@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 use Cylancer\CyNewsletter\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Context\Context;
-use Cylancer\CyNewsletter\Domain\Model\FrontendUserGroup;
 use Cylancer\CyNewsletter\Domain\Model\FrontendUser;
 
 class FrontendUserService implements SingletonInterface

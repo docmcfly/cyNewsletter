@@ -208,7 +208,10 @@ class SendNewsletterTask extends AbstractTask
             ->withAttribute('site', $site)
             ->withAttribute('extbase', new \TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters());
         $request = GeneralUtility::makeInstance(Request::class, $serverRequest);
+       //$GLOBALS['TYPO3_REQUEST'] = $request;
+       if(!isset($GLOBALS['TYPO3_REQUEST'])){
         $GLOBALS['TYPO3_REQUEST'] = $request;
+        }
         return $request;
     }
 
