@@ -18,7 +18,7 @@ use Psr\Http\Message\ResponseInterface;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 Clemens Gogolin <service@cylancer.net>
+ * (c) 2024 Clemens Gogolin <service@cylancer.net>
  * 
  * @package Cylancer\CyNewsletter\Controller;
  */
@@ -43,8 +43,8 @@ class UserSettingsController extends ActionController
     {
         if ($this->_validationResults == null) {
             $this->_validationResults = ($this->request->hasArgument(UserSettingsController::VALIDATIOPN_RESULTS)) ? //
-            $this->request->getArgument(UserSettingsController::VALIDATIOPN_RESULTS) : //
-            new ValidationResults();
+                $this->request->getArgument(UserSettingsController::VALIDATIOPN_RESULTS) : //
+                new ValidationResults();
         }
         return $this->_validationResults;
     }
@@ -61,7 +61,7 @@ class UserSettingsController extends ActionController
      * @return NULL|object
      *
      */
-    public function saveAction(FrontendUser $currentUser = null): ?Object
+    public function saveAction(FrontendUser $currentUser = null): ResponseInterface
     {
         /** @var ValidationResults $validationResults **/
         $validationResults = $this->getValidationResults();
@@ -76,11 +76,11 @@ class UserSettingsController extends ActionController
             $validationResults->addError('notLogged');
         }
 
-        if (! key_exists($currentUser->getNewsletterSetting(), UserNewsletterOptions::LABEL)) {
+        if (!key_exists($currentUser->getNewsletterSetting(), UserNewsletterOptions::LABEL)) {
             $validationResults->addError('invalidNewsletterSetting');
         }
 
-        if (! $validationResults->hasErrors()) {
+        if (!$validationResults->hasErrors()) {
             $this->frontendUserRepository->update($currentUser);
             $validationResults->addInfo('savingSuccessful');
         }
@@ -105,7 +105,7 @@ class UserSettingsController extends ActionController
             $validationResults->addError('notLogged');
         }
         $this->view->assign(UserSettingsController::VALIDATIOPN_RESULTS, $validationResults);
-         return $this->htmlResponse();
+        return $this->htmlResponse();
     }
 
     /**

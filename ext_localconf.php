@@ -1,20 +1,22 @@
 <?php
 use Cylancer\CyNewsletter\Controller\UserSettingsController;
-use Cylancer\CyNewsletter\Upgrades\MigrationUpgradeWizard;
-use Cylancer\CyNewsletter\Upgrades\UserToolsMigrationWizard;
 
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin('Cylancer.CyNewsletter', 'UserSettings', [
-       UserSettingsController::class => 'show, save'
-    ], 
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'CyNewsletter',
+        'UserSettings',
+        [
+            UserSettingsController::class => 'show, save'
+        ],
         // non-cacheable actions
         [
             UserSettingsController::class => 'show,save'
-        ]);
+        ]
+    );
 
- 
+
 
     // wizards
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('mod {
@@ -39,7 +41,7 @@ call_user_func(function () {
         'source' => 'EXT:cy_newsletter/Resources/Public/Icons/ext_icon.svg'
     ]);
 
- 
+
 });
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\CyNewsletter\Task\SendNewsletterTask::class]['description'] = 'Send Newsletter';
@@ -51,13 +53,13 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\CyNews
     'additionalFields' => \Cylancer\CyNewsletter\Task\SendNewsletterAdditionalFieldProvider::class
 ];
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['cynewsletter_newsletterUsertoolsMigrationWizard']
-= UserToolsMigrationWizard::class;
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScript(
     'cy_newsletter',
     'setup',
     "@import 'EXT:cy_newsletter/Configuration/TypoScript/setup.typoscript'"
-    );
+);
 
-
+// E-Mail Templates
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['templateRootPaths']['cy_newsletter'] = 'EXT:cy_newsletter/Resources/Private/Templates/NewsRememberEmail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['layoutRootPaths']['cy_newsletter'] = 'EXT:cy_newsletter/Resources/Private/Layouts/NewsRememberEmail/';
+$GLOBALS['TYPO3_CONF_VARS']['MAIL']['partialRootPaths']['cy_newsletter'] = 'EXT:cy_newsletter/Resources/Private/Partials/NewsRememberEmail/';

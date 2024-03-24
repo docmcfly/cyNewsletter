@@ -20,11 +20,11 @@ return [
         'iconfile' => 'EXT:cy_newsletter/Resources/Public/Icons/actions-document-select.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, news'
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,  news'
     ],
     'types' => [
         '1' => [
-            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, news, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'
+            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource,  news'
         ]
     ],
     'columns' => [
@@ -32,6 +32,7 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
+                'readOnly' => 1,
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'special' => 'languages',

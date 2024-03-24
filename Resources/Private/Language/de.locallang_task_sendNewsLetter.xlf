@@ -21,9 +21,9 @@
 				<source>Page id of the frontend users.</source>
 				<target state="tanslated">Page Id der Webseitennutzer</target>
 			</trans-unit>
-			<trans-unit id="task.sendNewsletter.newsDisplayUrl">
-				<source>Url the news show.</source>
-				<target state="tanslated">Seite, wo die News angezeigt werden</target>
+			<trans-unit id="task.sendNewsletter.newsDisplayPageUid">
+				<source>Url the detail news show.: A valid format is t3://page?uid=[uid of the page]#[uid of the detail news viewer content element]</source>
+				<target state="tanslated">Seite, wo die News angezeigt werden: Ein gültiges Format ist: t3://page?uid=[uid of the page]#[uid of the detail news viewer content element]</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.logStoragePageId">
 				<source>Storage of the newsletter log.</source>
@@ -41,6 +41,10 @@
 				<source>Sender name</source>
 				<target state="tanslated">Sendername</target>
 			</trans-unit>
+			<trans-unit id="task.sendNewsletter.siteIdentifier">
+				<source>Site identifier</source>
+				<target state="tanslated">Site Identifier (Eindeutige Kennung)</target>
+			</trans-unit>
 
 			<trans-unit id="task.sendNewsletter.error.invalid.newsStoragePageId">
 				<source>Invalid news storoage page id.</source>
@@ -54,15 +58,44 @@
 				<source>Invalid log stroage page id.</source>
 				<target state="tanslated">Ungültige Log-Speicher-Seiten-Id.</target>
 			</trans-unit>
-			<trans-unit id="task.sendNewsletter.error.invalid.newsDisplayUrl">
-				<source>Invalid news display url.</source>
-				<target state="tanslated">Ungültige URL (Wo die News angezeigt werden.)</target>
+			<trans-unit id="task.sendNewsletter.error.invalid.newsDisplayPageUid">
+				<source>Page ID of the page on which the detailed view of the message is displayed.</source>
+				<target state="tanslated">Seiten-ID der Seite, auf der die Detailansicht der Nachricht angezeigt wird.</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.error.invalid.maxCharacters">
 				<source>The limitation of the characters in the news reminder email is invalid.</source>
 				<target state="tanslated">Zeichenanzahl in der Erinnerungsmail ist ungültig.</target>
 			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.required.siteIdentifier">
+				<source>Site identifier is required.</source>
+				<target state="tanslated">Der Site identifier ist verpflichtend.</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.siteNotFound.siteIdentifier">
+				<source>Site with specified identifier not found.</source>
+				<target state="tanslated">Site mit dem angebebenen identifier wurde nicht gefunden.</target>
+			</trans-unit>
 			
+			<trans-unit id="task.sendNewsletter.rememberEmail.subject">
+				<source>Newletter: </source>
+				<target state="tanslated">Newsletter:</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.salutation">
+				<source>Hello %s,</source>
+				<target state="tanslated">Guten Tag %s,</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.teaser">
+				<source>a new news is public. Here are the first words of the news:</source>
+				<target state="tanslated">es wurde eine neue Neuigkeit veröffentlicht. Hier sind die ersten Zeilen der Nachricht:</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.newsLink">
+				<source>Link to the full news</source>
+				<target state="tanslated">Link zur vollständigen Neuigkeit</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.rememberEmail.subscriptInfo">
+				<source>Hint: You can config the newsletter settings in your personal profile.</source>
+				<target state="tanslated">Hinweis: Im persönlichen Profil kann man die Einstellungen zu diesem Newsletter verändert.</target>
+			</trans-unit>
+
 			
 		</body>
 	</file>
