@@ -8,7 +8,7 @@ namespace Cylancer\CyNewsLetter\Service;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2023 C. Gogolin <service@cylancer.net>
+ * (c) 2024 C. Gogolin <service@cylancer.net>
  *
  * @package Cylancer\CyNewsLetter\Service
  */
@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\SingletonInterface;
 use Cylancer\CyNewsletter\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Context\Context;
-use Cylancer\CyNewsletter\Domain\Model\FrontendUserGroup;
 use Cylancer\CyNewsletter\Domain\Model\FrontendUser;
 
 class FrontendUserService implements SingletonInterface

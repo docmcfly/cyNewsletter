@@ -4,8 +4,8 @@
 	"description" : "This extension allows to send a newsletter based on a news from the news extension.",
 	"license" : "GPL-2.0-or-later",
 	"require" : {
-		"typo3/cms-core" : "^11.5",
-		"georgringer/news" : ">=9.4.0"
+		"typo3/cms-core" : "^12.4",
+		"georgringer/news" : ">=11.4.0"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -28,4 +28,5 @@
 			"extension-key" : "cynewsletter"
 		}
 	}
+
 }
