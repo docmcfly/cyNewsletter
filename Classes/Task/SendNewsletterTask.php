@@ -170,7 +170,7 @@ class SendNewsletterTask extends AbstractTask
                     $subject = $this->get(SendNewsletterTask::SUBJECT_PREFIX) . $n->getTitle();
                     $uq = $this->frontendUserRepository->createQuery();
 
-                    foreach ($uq->matching($uq->logicalAnd($uq->in('newsletterSetting', $newsletterOptions), $uq->logicalNot($uq->equals('email', ''))))->execute() as $u) {
+                    foreach ($uq->matching($uq->logicalAnd($uq->in('newsletterSetting', $newsletterOptions), $uq->logicalNot($uq->equals('disable', '0')), $uq->logicalNot($uq->equals('email', ''))))->execute() as $u) {
 
                         $fluidEmail = GeneralUtility::makeInstance(FluidEmail::class);
                         $fluidEmail
@@ -208,9 +208,9 @@ class SendNewsletterTask extends AbstractTask
             ->withAttribute('site', $site)
             ->withAttribute('extbase', new \TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters());
         $request = GeneralUtility::makeInstance(Request::class, $serverRequest);
-       //$GLOBALS['TYPO3_REQUEST'] = $request;
-       if(!isset($GLOBALS['TYPO3_REQUEST'])){
-        $GLOBALS['TYPO3_REQUEST'] = $request;
+        //$GLOBALS['TYPO3_REQUEST'] = $request;
+        if (!isset($GLOBALS['TYPO3_REQUEST'])) {
+            $GLOBALS['TYPO3_REQUEST'] = $request;
         }
         return $request;
     }
