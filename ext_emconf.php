@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '2.0.0',
+    'version' => '2.0.1',
     'constraints' => [
         'depends' => [
             'typo3' => '12.4.0-12.4.99',
@@ -28,6 +28,7 @@ $EM_CONF[$_EXTKEY] = [
 
 /** ---- CHANGELOG ----------
 
+2.0.1 :: FIX Disabled user does not receive a newsletter.
 2.0.0 :: UPD to TYPO3 12.4.x
 1.1.1 :: Fix the news url.
 1.1.0 :: Fix the plugin configuration / registry.
