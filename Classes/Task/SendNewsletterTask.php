@@ -155,7 +155,7 @@ class SendNewsletterTask extends AbstractTask
                     ->eq('pid', $this->newsStoragePageId));
             $sql = $nqb->getSQL() . ' AND `uid` NOT IN ( ' . $nlqb->getSQL() . ' ) ';
             foreach ($this->newsRepository->createQuery()->statement($sql)->execute() as $n) {
-
+                // debug($n);     
                 $t = time();
                 $plusOneHour = $t - SendNewsletterTask::NEWS_PUBLIC_OFFSET;
 
@@ -170,8 +170,13 @@ class SendNewsletterTask extends AbstractTask
                     $subject = $this->get(SendNewsletterTask::SUBJECT_PREFIX) . $n->getTitle();
                     $uq = $this->frontendUserRepository->createQuery();
 
-                    foreach ($uq->matching($uq->logicalAnd($uq->in('newsletterSetting', $newsletterOptions), $uq->logicalNot($uq->equals('disable', '0')), $uq->logicalNot($uq->equals('email', ''))))->execute() as $u) {
-
+                    foreach (
+                        $uq->matching(
+                            $uq->logicalAnd($uq->in('newsletterSetting', $newsletterOptions), 
+                            $uq->equals('disable', '0'), 
+                            $uq->logicalNot($uq->equals('email', ''))))->execute() as $u) {
+                                
+                         // debug($u);         
                         $fluidEmail = GeneralUtility::makeInstance(FluidEmail::class);
                         $fluidEmail
                             ->setRequest($this->createRequest($this->siteIdentifier))
