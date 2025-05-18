@@ -13,33 +13,32 @@ use Cylancer\CyNewsletter\Service\FrontendUserService;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * This file is part of the "Newsletter" Extension for TYPO3 CMS.
+ * This file is part of the "cy_newsletter" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2024 Clemens Gogolin <service@cylancer.net>
+ * (c) 2025 C. Gogolin <service@cylancer.net>
  * 
- * @package Cylancer\CyNewsletter\Controller;
  */
 class UserSettingsController extends ActionController
 {
 
-    const CURRENT_USER = 'currentUser';
+    private const CURRENT_USER = 'currentUser';
 
-    const VALIDATIOPN_RESULTS = 'validationResults';
+    private const VALIDATIOPN_RESULTS = 'validationResults';
 
-    const NEWSLETTER_OPTIONS = 'newsletterOptions';
+    private const NEWSLETTER_OPTIONS = 'newsletterOptions';
 
-    /** @var FrontendUserRepository   */
-    private $frontendUserRepository = null;
+    private ValidationResults $_validationResults;
 
-    /** @var FrontendUserService **/
-    private $frontendUserService;
+    public function __construct(
+        private readonly FrontendUserRepository $frontendUserRepository,
+        private readonly FrontendUserService $frontendUserService
+    ) {
+    }
 
-    private $_validationResults = null;
-
-    private function getValidationResults()
+    private function getValidationResults(): ValidationResults
     {
         if ($this->_validationResults == null) {
             $this->_validationResults = ($this->request->hasArgument(UserSettingsController::VALIDATIOPN_RESULTS)) ? //
@@ -49,18 +48,7 @@ class UserSettingsController extends ActionController
         return $this->_validationResults;
     }
 
-    public function __construct(FrontendUserRepository $frontendUserRepository, FrontendUserService $frontendUserService)
-    {
-        $this->frontendUserRepository = $frontendUserRepository;
-        $this->frontendUserService = $frontendUserService;
-    }
 
-    /**
-     *
-     * @param FrontendUser $user
-     * @return NULL|object
-     *
-     */
     public function saveAction(FrontendUser $currentUser = null): ResponseInterface
     {
         /** @var ValidationResults $validationResults **/
@@ -89,11 +77,6 @@ class UserSettingsController extends ActionController
         ]);
     }
 
-    /**
-     * Show the user settings
-     *
-     * @return ResponseInterface
-     */
     public function showAction(): ResponseInterface
     {
         $validationResults = $this->getValidationResults();
@@ -108,13 +91,9 @@ class UserSettingsController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     *
-     * @return string[]
-     */
     private function getTranslatedNewsletterOptions(): array
     {
-        $return = array();
+        $return = [];
 
         foreach (UserNewsletterOptions::LABEL as $k => $v) {
             $return[$k] = LocalizationUtility::translate('userSettings.form.newsletterOption.' . $v, 'CyNewsletter');
