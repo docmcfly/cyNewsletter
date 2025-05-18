@@ -10,10 +10,8 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- * (c) 2022 Clemens Gogolin <service@cylancer.net>
+ * (c) 2025 C. Gogolin <service@cylancer.net>
  *
- * @package Cylancer\CyNewsletter\Domain\Repository
- *         
  */
 class FrontendUserRepository extends Repository
 {

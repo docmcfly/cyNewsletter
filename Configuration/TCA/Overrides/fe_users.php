@@ -1,6 +1,16 @@
 <?php
 defined('TYPO3') || die('Access denied.');
 
+/**
+ * This file is part of the "cy_newsletter" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2025 C. Gogolin <service@cylancer.net>
+ *
+ */
+
 if (! isset($GLOBALS['TCA']['fe_users']['ctrl']['type'])) {
     // no type field defined, so we define it here. This will only happen the first time the extension is installed!!
     $GLOBALS['TCA']['fe_users']['ctrl']['type'] = 'tx_extbase_type';

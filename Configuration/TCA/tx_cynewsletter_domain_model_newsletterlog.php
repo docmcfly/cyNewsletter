@@ -1,8 +1,19 @@
 <?php
+
+/**
+ * This file is part of the "cy_newsletter" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2025 C. Gogolin <service@cylancer.net>
+ *
+ */
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_db.xlf:tx_cynewsletter_domain_model_newsletter_log:title',
-        'label' => 'uid',
+        'label' => 'news',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -20,11 +31,11 @@ return [
         'iconfile' => 'EXT:cy_newsletter/Resources/Public/Icons/actions-document-select.png'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource,  news'
+        'showRecordFieldList' => 'news'
     ],
     'types' => [
         '1' => [
-            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource,  news'
+            'showitem' => 'news'
         ]
     ],
     'columns' => [

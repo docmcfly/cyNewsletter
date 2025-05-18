@@ -10,8 +10,8 @@ namespace Cylancer\CyNewsLetter\Service;
  *
  * (c) 2024 C. Gogolin <service@cylancer.net>
  *
- * @package Cylancer\CyNewsLetter\Service
  */
+
 use TYPO3\CMS\Core\SingletonInterface;
 use Cylancer\CyNewsletter\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -21,48 +21,28 @@ use Cylancer\CyNewsletter\Domain\Model\FrontendUser;
 class FrontendUserService implements SingletonInterface
 {
 
-    /** @var FrontendUserRepository   */
-    private $frontendUserRepository = null;
-
-    /**
-     *
-     * @param FrontendUserRepository $frontendUserRepository
-     */
-    public function __construct(FrontendUserRepository $frontendUserRepository)
-    {
-        $this->frontendUserRepository = $frontendUserRepository;
+    public function __construct(
+        private readonly FrontendUserRepository $frontendUserRepository
+    ) {
     }
 
-    /**
-     *
-     * @return FrontendUser Returns the current frontend user
-     */
     public function getCurrentUser(): ?FrontendUser
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return null;
         }
         return $this->frontendUserRepository->findByUid($this->getCurrentUserUid());
     }
-    
-    /**
-     * 
-     * @return int
-     */
+
     public function getCurrentUserUid(): int
     {
-        if (! $this->isLogged()) {
+        if (!$this->isLogged()) {
             return false;
         }
         $context = GeneralUtility::makeInstance(Context::class);
         return $context->getPropertyFromAspect('frontend.user', 'id');
     }
 
-    /**
-     * Check if the user is logged
-     *
-     * @return bool
-     */
     public function isLogged(): bool
     {
         $context = GeneralUtility::makeInstance(Context::class);

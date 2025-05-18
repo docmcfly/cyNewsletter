@@ -20,9 +20,8 @@
 
 <f:format.crop maxCharacters="{maxCharacters}" append="..." respectWordBoundaries="true"><f:format.stripTags>{news.bodytext}</f:format.stripTags></f:format.crop>
 
-<f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.newsLink" />
+{readMore}
 <f:format.raw><f:uri.action linkAccessRestrictedPages="true" extensionName="News" pluginName="Pi1" absolute="true" pageUid="{pageUid}" noCache="true" action="detail" controller="News" arguments="{'news': news.uid}" /></f:format.raw>
-
 
 --
 <f:translate key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.subscriptInfo"/>

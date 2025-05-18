@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-11-29T21:51:04Z" product-name="cynewsletter">
-		<header/>
+	<file source-language="en" datatype="plaintext" original="messages" product-name="cylancer cySendMails">
+		<header />
 		<body>
 
 			<!-- Plugin group -->
 			<trans-unit id="plugins.group.cyNewsletter.name">
 				<source>Simple news newletter package</source>
+				<target state="tanslated">Einfaches News-Newsletter-Paket</target>
 			</trans-unit>
 
 		</body>

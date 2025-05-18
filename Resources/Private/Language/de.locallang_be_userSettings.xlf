@@ -13,21 +13,6 @@
 				<target state="tanslated">Mit dieser Erweiterung kann der Nutzer seine Newslettereinstellungen ändern.</target>
 			</trans-unit>
 
-			<trans-unit id="flexforms_general.title">
-				<source>Common settings</source>
-				<target state="tanslated">Einstellungen</target>
-			</trans-unit>
-
-			<trans-unit id="flexforms_general.settings.visbleFeGroups">
-				<source>Visbible frontend user groups </source>
-				<target state="tanslated">Sichtbare Webnutzergruppen</target>
-			</trans-unit>
-
-			<trans-unit id="flexforms_general.settings.userImageFolder">
-				<source>Storage folder for the user image</source>
-				<target state="tanslated">Speicherort für die Nutzerbilder</target>
-			</trans-unit>
-
 		</body>
 	</file>
 </xliff>

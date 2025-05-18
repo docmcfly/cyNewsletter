@@ -17,23 +17,20 @@
 		<f:translate
 			key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.teaser" />
 		<hr />
-		<f:link.action linkAccessRestrictedPages="true" extensionName="News" pluginName="Pi1" absolute="true"
-			pageUid="47" noCache="true" action="detail" controller="News" arguments="{'news': news.uid}">
+		<f:link.action linkAccessRestrictedPages="true" absolute="true"  extensionName="News" pluginName="Pi1"
+			pageUid="{pageUid}" noCache="true" action="detail" controller="News" arguments="{'news': news.uid}">
 			<h3>{news.title}</h3>
 		</f:link.action>
 		<f:if condition="{news.teaser}">
 			<div style="margin-bottom:.3em">{news.teaser}</div>
 		</f:if>
+		<br>
 		<f:format.crop maxCharacters="{maxCharacters}" respectWordBoundaries="true">
 			<f:format.htmlentitiesDecode>{news.bodytext}</f:format.htmlentitiesDecode>
 		</f:format.crop>
-		<hr>
+		<br>
 		<f:link.action linkAccessRestrictedPages="true" extensionName="News" pluginName="Pi1" absolute="true"
-			pageUid="{pageUid}" noCache="true" action="detail" controller="News" arguments="{'news': news.uid}">
-			<f:translate
-				key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.newsLink" />
-		</f:link.action>
-		<hr>
+			pageUid="99" noCache="true" action="detail" controller="News" arguments="{'news': news.uid}">{readMore}</f:link.action>
 		<hr>
 		<f:translate
 			key="LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_task_sendNewsLetter.xlf:task.sendNewsletter.rememberEmail.subscriptInfo" />

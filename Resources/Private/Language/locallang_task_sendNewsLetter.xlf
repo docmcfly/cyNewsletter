@@ -15,13 +15,13 @@
 				<source>Page id of the news storage</source>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.feUserPageId">
-				<source>Page id of the frontend users.</source>
+				<source>Page id of the frontend users</source>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.newsDisplayPageUid">
-				<source>Url the detail news show.: A valid format is t3://page?uid=[uid of the page]#[uid of the detail news viewer content element]</source>
+				<source>Url the detail news show</source>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.logStoragePageId">
-				<source>Storage of the newsletter log.</source>
+				<source>Storage of the newsletter log</source>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.maxCharacters">
 				<source>Limitation of the characters in the news reminder email</source>

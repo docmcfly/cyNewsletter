@@ -18,15 +18,15 @@
 				<target state="tanslated">Page Id der Nachrichtenablage</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.feUserPageId">
-				<source>Page id of the frontend users.</source>
+				<source>Page id of the frontend users</source>
 				<target state="tanslated">Page Id der Webseitennutzer</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.newsDisplayPageUid">
-				<source>Url the detail news show.: A valid format is t3://page?uid=[uid of the page]#[uid of the detail news viewer content element]</source>
-				<target state="tanslated">Seite, wo die News angezeigt werden: Ein gültiges Format ist: t3://page?uid=[uid of the page]#[uid of the detail news viewer content element]</target>
+				<source>Url the detail news show</source>
+				<target state="tanslated">Seite, wo die News angezeigt werden</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.logStoragePageId">
-				<source>Storage of the newsletter log.</source>
+				<source>Storage of the newsletter log</source>
 				<target state="tanslated">Hier werden die Log-Einträge hinterlegt.</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.maxCharacters">
@@ -40,6 +40,14 @@
 			<trans-unit id="task.sendNewsletter.senderName">
 				<source>Sender name</source>
 				<target state="tanslated">Sendername</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.readMore">
+				<source>Link text for the "Read more..." link in the newsletter email</source>
+				<target state="tanslated">Link-Text für den "Weiterlesen..." in der Newletter-E-Mail</target>
+			</trans-unit>
+			<trans-unit id="task.sendNewsletter.readMore.default">
+				<source>Read more...</source>
+				<target state="tanslated">Weiterlesen...</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.siteIdentifier">
 				<source>Site identifier</source>
@@ -70,6 +78,10 @@
 				<source>Site identifier is required.</source>
 				<target state="tanslated">Der Site identifier ist verpflichtend.</target>
 			</trans-unit>
+			<trans-unit id="task.sendNewsletter.error.required.readMore">
+				<source>The "read more" text is required.</source>
+				<target state="tanslated">Der "Weiterlesen"-Text ist verpflichtend.</target>
+			</trans-unit>
 			<trans-unit id="task.sendNewsletter.error.siteNotFound.siteIdentifier">
 				<source>Site with specified identifier not found.</source>
 				<target state="tanslated">Site mit dem angebebenen identifier wurde nicht gefunden.</target>
@@ -84,15 +96,11 @@
 				<target state="tanslated">Guten Tag %s,</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.rememberEmail.teaser">
-				<source>a new news is public. Here are the first words of the news:</source>
-				<target state="tanslated">es wurde eine neue Neuigkeit veröffentlicht. Hier sind die ersten Zeilen der Nachricht:</target>
-			</trans-unit>
-			<trans-unit id="task.sendNewsletter.rememberEmail.newsLink">
-				<source>Link to the full news</source>
-				<target state="tanslated">Link zur vollständigen Neuigkeit</target>
+				<source>a new news is public:</source>
+				<target state="tanslated">es wurde eine neue Neuigkeit veröffentlicht:</target>
 			</trans-unit>
 			<trans-unit id="task.sendNewsletter.rememberEmail.subscriptInfo">
-				<source>Hint: You can config the newsletter settings in your personal profile.</source>
+				<source>Hint: You can change the newsletter settings in your personal profile.</source>
 				<target state="tanslated">Hinweis: Im persönlichen Profil kann man die Einstellungen zu diesem Newsletter verändert.</target>
 			</trans-unit>
 

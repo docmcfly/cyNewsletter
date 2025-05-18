@@ -1,48 +1,34 @@
 <?php
 use Cylancer\CyNewsletter\Controller\UserSettingsController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die('Access denied.');
 
-call_user_func(function () {
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'CyNewsletter',
-        'UserSettings',
-        [
-            UserSettingsController::class => 'show, save'
-        ],
-        // non-cacheable actions
-        [
-            UserSettingsController::class => 'show,save'
-        ]
-    );
+/**
+ *
+ * This file is part of the "cy_newletter" Extension for TYPO3 CMS.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.txt file that was distributed with this source code.
+ *
+ * (c) 2025 C. Gogolin <service@cylancer.net>
+ *
+ */
 
 
+ExtensionUtility::configurePlugin(
+    'CyNewsletter',
+    'UserSettings',
+    [
+        UserSettingsController::class => 'show, save'
+    ],
+    // non-cacheable actions
+    [
+        UserSettingsController::class => 'show,save'
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+);
 
-    // wizards
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('mod {
-            wizards.newContentElement.wizardItems.plugins {
-                elements {
-                   usersettings {
-                        iconIdentifier = cynewsletter-plugin-usersettings
-                        title = LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_be_usersettings.xlf:plugin.name
-                        description = LLL:EXT:cy_newsletter/Resources/Private/Language/locallang_be_usersettings.xlf:plugin.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = cynewsletter_usersettings
-                        }
-                    }
-                }
-                show = *
-            }
-       }');
-    $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-
-    $iconRegistry->registerIcon('cynewsletter-plugin-usersettings', \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class, [
-        'source' => 'EXT:cy_newsletter/Resources/Public/Icons/ext_icon.svg'
-    ]);
-
-
-});
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks'][\Cylancer\CyNewsletter\Task\SendNewsletterTask::class]['description'] = 'Send Newsletter';
 // Add task for optimizing database tables
