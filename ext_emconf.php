@@ -20,7 +20,7 @@
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '3.0.2',
+    'version' => '3.1.0',
     'constraints' => [
         'depends' => [
             'typo3' => '13.4.0-13.4.99',
