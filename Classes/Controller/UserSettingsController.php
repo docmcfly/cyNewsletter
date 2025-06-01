@@ -30,7 +30,7 @@ class UserSettingsController extends ActionController
 
     private const NEWSLETTER_OPTIONS = 'newsletterOptions';
 
-    private ValidationResults $_validationResults;
+    private ?ValidationResults $_validationResults = null;
 
     public function __construct(
         private readonly FrontendUserRepository $frontendUserRepository,
