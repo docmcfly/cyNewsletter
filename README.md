@@ -24,6 +24,8 @@ This extension monitors whether new news items have been created and sends an em
 
 ## Limitation
 
+* Is dependent on the "News" extension.
+
 ## Installation
 
 ### Background job for sending the newsletters.
