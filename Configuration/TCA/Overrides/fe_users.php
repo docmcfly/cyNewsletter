@@ -11,7 +11,7 @@ defined('TYPO3') || die('Access denied.');
  *
  */
 
-if (! isset($GLOBALS['TCA']['fe_users']['ctrl']['type'])) {
+if (!isset($GLOBALS['TCA']['fe_users']['ctrl']['type'])) {
     // no type field defined, so we define it here. This will only happen the first time the extension is installed!!
     $GLOBALS['TCA']['fe_users']['ctrl']['type'] = 'tx_extbase_type';
     $tempColumnstx_cynewsletter_fe_users = [];
@@ -51,20 +51,17 @@ $tmp_newsletter_columns = [
             'renderType' => 'selectSingle',
             'items' => [
                 [
-
-                    'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:userSettings.form.newsletterOption.disabled',
-                    1
+                    'label' => 'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:userSettings.form.newsletterOption.disabled',
+                    'value' => 1
                 ],
                 [
-
-                    'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:userSettings.form.newsletterOption.onlyImportantNews',
-                    2
+                    'label' => 'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:userSettings.form.newsletterOption.onlyImportantNews',
+                    'value' => 2
                 ],
                 [
-
-                    'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:userSettings.form.newsletterOption.allNews',
-                    3
-                ]
+                    'label' => 'LLL:EXT:cy_newsletter/Resources/Private/Language/locallang.xlf:userSettings.form.newsletterOption.allNews',
+                    'value' => 3
+                ],
             ],
             'default' => 2
         ]
