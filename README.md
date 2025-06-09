@@ -4,6 +4,7 @@ This extension monitors whether new news items have been created and sends an em
 
 ## Change-Log
 
+* 3.1.1 :: CLN Cleaning fe users integration
 * 3.1.0 :: UPD Update this README.md
 * 3.0.3 :: FIX Frontend plugin throws an exception
 * 3.0.2 :: FIX Add missing translation texts
