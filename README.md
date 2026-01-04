@@ -4,13 +4,14 @@ This extension monitors whether new news items have been created and sends an em
 
 ## Change-Log
 
-* 3.1.1 :: CLN Cleaning fe users integration
-* 3.1.0 :: UPD Update this README.md
-* 3.0.3 :: FIX Frontend plugin throws an exception
-* 3.0.2 :: FIX Add missing translation texts
-* 3.0.1 :: UPD Update (clean) the TCA configuration
-* 3.0.0 :: UPD to TYPO3 13.4.x
-* 2.0.2 :: FIX The user flag “disable” was evaluated incorrectly. / The ununsed attribute t3ver_label generates exceptions.
+* 3.2.0 :: UPD : Upgrade test with news 14.0.x
+* 3.1.1 :: CLN : Cleaning fe users integration
+* 3.1.0 :: UPD : Update this README.md
+* 3.0.3 :: FIX : Frontend plugin throws an exception
+* 3.0.2 :: FIX : Add missing translation texts
+* 3.0.1 :: UPD : Update (clean) the TCA configuration
+* 3.0.0 :: UPD : to TYPO3 13.4.x
+* 2.0.2 :: FIX : The user flag “disable” was evaluated incorrectly. / The ununsed attribute t3ver_label generates exceptions.
 * 2.0.1 :: FIX Disabled user does not receive a newsletter.
 * 2.0.0 :: UPD to TYPO3 12.4.x
 * 1.1.1 :: Fix the news url.
